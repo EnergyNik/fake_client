@@ -13,15 +13,11 @@ public class stream {
     public BufferedReader in;
     public PrintWriter out;
     public BufferedReader inu;
-    public  void make_stream(Socket fromserver) throws IOException {
-        this.in = new
-                BufferedReader(new
-                InputStreamReader(fromserver.getInputStream()));
-        this.out = new
-                PrintWriter(fromserver.getOutputStream(), true);
-        this.inu = new
-                BufferedReader(new InputStreamReader(System.in));
 
+    public stream(Socket fromserver) throws IOException {
+        this.in = new BufferedReader(new InputStreamReader(fromserver.getInputStream()));
+        this.out = new PrintWriter(fromserver.getOutputStream(), true);
+        this.inu = new BufferedReader(new InputStreamReader(System.in));
     }
 }
 

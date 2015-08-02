@@ -10,7 +10,7 @@ import java.net.Socket;
  * Created by 1 on 26.07.2015.
  */
 public class ServerWorkClass {
-    public static void start_server() throws IOException{
+    public static void start_server() throws IOException {
         System.out.println("Welcome to Server side");
         ServerSocket servers = null;
         Socket fromclient = null;

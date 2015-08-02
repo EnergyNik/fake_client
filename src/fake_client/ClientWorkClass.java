@@ -11,8 +11,7 @@ import java.net.Socket;
  * Created by 1 on 26.07.2015.
  */
 public class ClientWorkClass {
-    public static void start_client() throws IOException
-    {
+    public static void start_client() throws IOException {
         System.out.println("Welcome to Client side");
         System.out.println("To whom you want to connect?");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -36,19 +35,18 @@ public class ClientWorkClass {
         System.out.println("Connecting to... " + host);
 
         Socket fromserver = new Socket(host, 4444);
-        stream stream = new stream();
-        stream.make_stream(fromserver);
+        stream stream = new stream(fromserver);
 
         System.out.println("The connection was successful. Enter your message");
-        get_message(stream.in, stream.out,stream.inu);
+        get_message(stream);
     }
 
-    private static void get_message(BufferedReader in, PrintWriter out, BufferedReader inu) throws IOException{
+    private static void get_message(stream stream) throws IOException {
         String fuser, fserver;
         while (true) {
-            fuser = inu.readLine();
-            out.println(fuser);
-            fserver = in.readLine();
+            fuser = stream.inu.readLine();
+            stream.out.println(fuser);
+            fserver = stream.in.readLine();
             if (fuser.equalsIgnoreCase("close")) {
                 System.out.println("Bye!");
                 break;
@@ -59,8 +57,8 @@ public class ClientWorkClass {
             }
             System.out.println(fserver);
         }
-        out.close();
-        in.close();
-        inu.close();
+        stream.out.close();
+        stream.in.close();
+        stream.inu.close();
     }
 }
