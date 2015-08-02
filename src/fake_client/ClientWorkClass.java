@@ -33,11 +33,12 @@ public class ClientWorkClass {
     }
 
     private static void start_connect(String host) throws IOException, NullPointerException {
-        Socket fromserver = null;
         System.out.println("Connecting to... " + host);
-        fromserver = new Socket(host, 4444);
-        stream stream= new stream();
+
+        Socket fromserver = new Socket(host, 4444);
+        stream stream = new stream();
         stream.make_stream(fromserver);
+
         System.out.println("The connection was successful. Enter your message");
         get_message(stream.in, stream.out,stream.inu);
     }
