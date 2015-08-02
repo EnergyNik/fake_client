@@ -39,11 +39,12 @@ public class ClientWorkClass {
         stream stream = new stream();
         stream.make_stream(fromserver);
 
-        System.out.println("The connection was successful. Enter your message");
+        System.out.println("The connection was successful.");
         get_message(stream.in, stream.out,stream.inu);
     }
 
     private static void get_message(BufferedReader in, PrintWriter out, BufferedReader inu) throws IOException{
+        System.out.println("Enter your message...");
         String fuser, fserver;
         while (true) {
             fuser = inu.readLine();

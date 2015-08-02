@@ -10,9 +10,22 @@ import java.net.Socket;
  * Created by 1 on 27.07.2015.
  */
 public class stream {
-    public BufferedReader in;
-    public PrintWriter out;
-    public BufferedReader inu;
+    private BufferedReader in;
+    private PrintWriter out;
+    private BufferedReader inu;
+
+    public BufferedReader getIn() {
+        return in;
+    }
+
+    public PrintWriter getOut() {
+        return out;
+    }
+
+    public BufferedReader getInu() {
+        return inu;
+    }
+
     public  void make_stream(Socket fromserver) throws IOException {
         this.in = new
                 BufferedReader(new

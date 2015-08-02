@@ -47,7 +47,7 @@ public class ServerWorkClass {
             System.out.println("Wait for messages");
 
             while (true) {
-                input = stream.in.readLine();
+                input = stream.getIn().readLine();
                 if (input.equalsIgnoreCase("exit")) {
                     stream.out.close();
                     stream.in.close();
