@@ -1,1 +1,1 @@
-fake_client project v1.1
+su.kilka.fakeClientServer.fake_client project v1.1

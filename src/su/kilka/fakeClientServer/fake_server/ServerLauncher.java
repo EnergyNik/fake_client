@@ -1,8 +1,8 @@
-package fake_client;
+package su.kilka.fakeClientServer.fake_server;
 import java.io.IOException;
 
-public class Client {
+public class ServerLauncher {
     public static void main(String[] args) throws IOException, NullPointerException {
-        ClientWorkClass.start_client();
+        Server.startServer();
     }
 }
