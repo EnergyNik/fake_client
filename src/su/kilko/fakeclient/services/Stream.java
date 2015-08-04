@@ -1,4 +1,4 @@
-package su.kilka.fakeClientServer.services;
+package su.kilko.fakeclient.services;
 
 import java.io.BufferedReader;
 import java.io.IOException;

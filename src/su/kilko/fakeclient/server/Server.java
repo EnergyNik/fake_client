@@ -1,6 +1,7 @@
-package su.kilka.fakeClientServer.fake_server;
+package su.kilko.fakeclient.server;
 
-import su.kilka.fakeClientServer.services.Stream;
+import su.kilko.fakeclient.services.Stream;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -16,7 +17,7 @@ public class Server extends Thread {
 
         System.out.println("Welcome to Server side");
 
-        int iClients=1; //count client
+        int numOfClients=1; //count client
         // create server socket
         try {
             socketServers = new ServerSocket(4444);
@@ -30,8 +31,8 @@ public class Server extends Thread {
             // ��� ������ �����������, ����� ���� ��������� ��������� �������
             // � ����� �������������� ����� � ����������� ������� �� ��������
             try {
-                new Server(iClients, socketServers.accept());
-                iClients++;
+                new Server(numOfClients, socketServers.accept());
+                numOfClients++;
                // System.out.print("Waiting for a client...");
             }
             catch (Exception e)
@@ -82,7 +83,7 @@ public class Server extends Thread {
                         break;
                     }
                     if (inputMessage.equalsIgnoreCase("close")) {
-                        System.out.println("Client " + numClient + " was been disconnected");
+                        System.out.println("Client " + numClient + " disconnected");
                         socketFromClient.close();
                         count1++;
                         break;
