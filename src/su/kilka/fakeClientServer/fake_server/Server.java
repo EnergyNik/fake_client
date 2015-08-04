@@ -27,8 +27,8 @@ public class Server extends Thread {
             }
 
         while (true) {
-            // ждём нового подключения, после чего запускаем обработку клиента
-            // в новый вычислительный поток и увеличиваем счётчик на единичку
+            // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            // пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             try {
                 new Server(iClients, socketServers.accept());
                 iClients++;
@@ -40,9 +40,9 @@ public class Server extends Thread {
             }
         }
     }
-    public Server(int numClient, Socket socketAccept)throws Exception {
+    public Server(int numClients, Socket socketAccept)throws Exception {
         socketFromClient = socketAccept;
-        this.numClient=numClient;
+        numClient=numClients;
 
         setDaemon(true);
         setPriority(NORM_PRIORITY);
@@ -71,8 +71,6 @@ public class Server extends Thread {
                 String inputMessage;
 
                 //ystem.out.println("Wait for messages");
-
-
                 while (true) {
                     inputMessage = stream.getInputStream().readLine();
                     if (inputMessage.equalsIgnoreCase("exit")) {

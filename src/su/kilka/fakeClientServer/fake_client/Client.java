@@ -36,25 +36,25 @@ public class Client {
         Stream stream = new Stream(new Socket(host, 4444));
 
         System.out.println("The connection was successful.");
-        getMessage(stream);
+        communicateWithServer(stream);
     }
 
-    private static void getMessage(Stream stream) throws IOException {
+    private static void communicateWithServer(Stream stream) throws IOException {
         System.out.println("Enter your message...");
-        String fromUser, fromServer;
+        String request, response;
         while (true) {
-            fromUser = stream.getInputStreamUser().readLine();
-            stream.getOutputStream().println(fromUser);
-            fromServer = stream.getInputStream().readLine();
-            if (fromUser.equalsIgnoreCase("close")) {
+            request = stream.getInputStreamUser().readLine();
+            stream.getOutputStream().println(request);
+            response = stream.getInputStream().readLine();
+            if (request.equalsIgnoreCase("close")) {
                 System.out.println("Bye!");
                 break;
             }
-            if (fromUser.equalsIgnoreCase("exit")) {
+            if (request.equalsIgnoreCase("exit")) {
                 System.out.println("Bye!");
                 break;
             }
-            System.out.println(fromServer);
+            System.out.println(response);
         }
         stream.getOutputStream().close();
         stream.getInputStream().close();
