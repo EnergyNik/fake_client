@@ -12,63 +12,75 @@ import java.net.Socket;
  */
 public class Client {
     static Stream stream;
-    private static int shutdownClient=0;
-    public static void startClient() throws IOException, NullPointerException {
+    private static boolean shutdownClient=false;
+    private static boolean flagRequestMessage=true;
+    private static boolean flagCommandMessage=false;
+    public static void run() throws IOException, NullPointerException {
         System.out.println("Welcome to Client side.");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("To whom you want to connect?");
         while (true) {
-                String host = reader.readLine();
-                if (!host.isEmpty()) {
-                    try {
-                        startConnect(host);
+            String host = reader.readLine();
+            if (!host.isEmpty()) {
+                try {
+                    startConnect(host);
+                    break;
+                } catch (Exception e) {
+                    if(shutdownClient) {
                         break;
-                    } catch (Exception e) {
-                        if(shutdownClient>0) break;
-                        System.out.println("Unknown host. Please try again");
                     }
-
-                } else {
-                    System.out.println("You entered an empty value");
+                    System.out.println("Unknown host. Please try again");
                 }
+            } else {
+                System.out.println("You entered an empty value");
             }
-
+        }
     }
 
     private static void startConnect(String host) throws Exception{
         System.out.println("Connecting to... " + host);
 
-        Stream stream = new Stream(new Socket(host, 4444));
+        stream = new Stream(new Socket(host, 4444));
 
         System.out.println("The connection was successful.");
-        exchangeMessage(stream);
+        requestMessage(stream);
     }
-    private static void exchangeMessage(Stream stream) throws Exception
-    {
+    private static void requestMessage(Stream stream) throws Exception {
         System.out.println("Enter your message...");
-        String request, response;
-        while (true) {
+        String request;
+        while (flagRequestMessage) {
             request = stream.getInputStreamUser().readLine();
-            stream.getOutputStream().println(request);
-            response = stream.getInputStream().readLine();
-            messageProcessing(request, response);
+            checkCommandMessage(request);
         }
     }
 
-    private static void messageProcessing(String request, String response) throws IOException {
+    private static void checkCommandMessage(String request) throws IOException {
         if (request.equalsIgnoreCase("close") || request.equalsIgnoreCase("exit")) {
             System.out.println("Bye!");
-            shutdownClient++;
+
+            shutdownClient=true;
+            flagCommandMessage=true;
+
+            responseMessage(request);
+
             streamCloser();
+            flagRequestMessage=false;
         }
-
-        System.out.println(response);
-
+        responseMessage(request);
     }
+
+    private static void responseMessage(String request)throws IOException{
+        String response;
+        stream.getOutputStream().println(request);
+        if(flagCommandMessage==false) {
+            response = stream.getInputStream().readLine();
+            System.out.println(response);
+        }
+    }
+
     private static void streamCloser()throws IOException{
         stream.getOutputStream().close();
         stream.getInputStream().close();
         stream.getInputStreamUser().close();
     }
-
 }
