@@ -1,5 +1,6 @@
 package su.kilko.fakeclient.client;
 
+import org.apache.log4j.Logger;
 import su.kilko.fakeclient.services.Stream;
 
 import java.io.BufferedReader;
@@ -14,9 +15,7 @@ public class Client {
     static Stream stream;
     static ClientState clientState = new ClientState(false);
     private static String request;
-    //private static final Logger log =Logger.getLogger(Client.class);
-    //private static boolean isShutdownClient = false;
-    //private static boolean flagRequestMessage=true;
+    private static final Logger log =Logger.getLogger(Client.class);
     public static void run() throws IOException, NullPointerException {
         System.out.println("Welcome to Client side.");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -26,11 +25,11 @@ public class Client {
             if (!host.isEmpty()) {
                 try {
                     startConnect(host);
+                    log.info("Programm closed by user");
                     break;
                 } catch (Exception e) {
-                    //log.error("Exception: ", e);
+                    log.error("Exception: ", e);
                     if(clientState.isShutdownClient()) {
-                        //log.info("Programm closed by user");
                         break;
                     }
                     System.out.println("Unknown host. Please try again");
@@ -61,7 +60,7 @@ public class Client {
 
     private static void requestMessage() throws Exception {
             request = stream.getInputStreamUser().readLine();
-            //log.info(String.format("Get request: %s", request));
+            log.info(String.format("Get request: %s", request));
     }
 
     private static void checkCommandMessage(String request) throws IOException {
@@ -74,11 +73,11 @@ public class Client {
 
     private static void responseMessage(String request)throws IOException{
         String response;
-        //log.info("Sending request to the server");
+        log.info("Sending request to the server");
         stream.getOutputStream().println(request);
         if(!clientState.isShutdownClient()) {
             response = stream.getInputStream().readLine();
-            //log.info(String.format("Get response: %s", response));
+            log.info(String.format("Get response: %s", response));
             System.out.println(response);
         }
     }
