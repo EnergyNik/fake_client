@@ -11,6 +11,7 @@ import java.net.Socket;
 /**
  * Created by Kosilov Nikita on 26.07.2015.
  */
+// This is an unwanted but committed change -->
 public class Client {
     static Stream stream;
     static ClientState clientState = new ClientState(false);
