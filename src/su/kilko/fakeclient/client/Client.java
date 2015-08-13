@@ -12,9 +12,10 @@ import java.net.Socket;
  */
 public class Client {
     static Stream stream;
+    static ClientState clientState = new ClientState(false);
     private static String request;
     //private static final Logger log =Logger.getLogger(Client.class);
-    private static boolean isShutdownClient = false;
+    //private static boolean isShutdownClient = false;
     //private static boolean flagRequestMessage=true;
     public static void run() throws IOException, NullPointerException {
         System.out.println("Welcome to Client side.");
@@ -28,7 +29,7 @@ public class Client {
                     break;
                 } catch (Exception e) {
                     //log.error("Exception: ", e);
-                    if(isShutdownClient) {
+                    if(clientState.isShutdownClient()) {
                         //log.info("Programm closed by user");
                         break;
                     }
@@ -50,7 +51,7 @@ public class Client {
     }
     private static void controlMessage() throws Exception{
         System.out.println("Enter your message...");
-        while (!isShutdownClient) {
+        while (!clientState.isShutdownClient()) {
             requestMessage();
             checkCommandMessage(request);
             responseMessage(request);
@@ -63,20 +64,19 @@ public class Client {
             //log.info(String.format("Get request: %s", request));
     }
 
-    private static boolean checkCommandMessage(String request) throws IOException {
+    private static void checkCommandMessage(String request) throws IOException {
         if (request.equalsIgnoreCase("close") || request.equalsIgnoreCase("exit")) {
             System.out.println("Bye!");
 
-            isShutdownClient =true;
+            clientState.setIsShutdownClient(true);
         }
-        return isShutdownClient;
     }
 
     private static void responseMessage(String request)throws IOException{
         String response;
         //log.info("Sending request to the server");
         stream.getOutputStream().println(request);
-        if(!isShutdownClient) {
+        if(!clientState.isShutdownClient()) {
             response = stream.getInputStream().readLine();
             //log.info(String.format("Get response: %s", response));
             System.out.println(response);
