@@ -52,16 +52,16 @@ public class Client {
     private static void controlMessage() throws Exception{
         System.out.println("Enter your message...");
         while (!clientState.isShutdownClient()) {
-            requestMessage();
-            checkCommandMessage(request);
+            checkCommandMessage(requestMessage());
             responseMessage(request);
         }
         streamCloser();
     }
 
-    private static void requestMessage() throws Exception {
+    private static String requestMessage() throws Exception {
             request = stream.getInputStreamUser().readLine();
             log.info(String.format("Get request: %s", request));
+        return request;
     }
 
     private static void checkCommandMessage(String request) throws IOException {
