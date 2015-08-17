@@ -5,15 +5,20 @@ package su.kilko.fakeclient.client;
  */
 public class ClientState {
     private boolean isShutdownClient;
-    public ClientState(boolean isShutdownClient){
-        this.isShutdownClient=isShutdownClient;
-    }
+
+
     public boolean isShutdownClient() {
         return isShutdownClient;
     }
 
+
     public void setIsShutdownClient(boolean isShutdownClient) {
         this.isShutdownClient = isShutdownClient;
+    }
+
+
+    public ClientState(boolean isShutdownClient){
+        this.isShutdownClient=isShutdownClient;
     }
 
 }
