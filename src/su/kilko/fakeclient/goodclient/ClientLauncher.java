@@ -37,6 +37,7 @@ public class ClientLauncher {
                 System.out.println("You entered an empty value");
             }
         }
+        System.out.println("Enter your message");
         while (true){
             String request = reader.readLine();
             if (request.equalsIgnoreCase("close") || request.equalsIgnoreCase("exit")) {

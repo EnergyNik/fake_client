@@ -9,12 +9,15 @@ import java.net.Socket;
 
 // * Created by Kosilov Nikita on 19.08.2015.
 
-public class ServerConnector {
+public class ServerConnector  {
 
-    public void send(Object request, Socket socketToServer) throws IOException {
+    private Socket serverSocket;
 
-        PrintWriter sendToServer = new PrintWriter(socketToServer.getOutputStream(), true);
-        BufferedReader messageFromServer = new BufferedReader(new InputStreamReader(socketToServer.getInputStream()));
+
+    public void send(Object request) throws IOException {
+
+        PrintWriter sendToServer = new PrintWriter(serverSocket.getOutputStream(), true);
+        BufferedReader messageFromServer = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
 
         String response;
 
@@ -26,12 +29,16 @@ public class ServerConnector {
             ClientLauncher.log.info(String.format("Get response: %s", response));
 
             System.out.println(response);
+        } else {
+            sendToServer.close();
+            messageFromServer.close();
         }
-        else {
-        sendToServer.close();
-        messageFromServer.close();
-        }
-
-
     }
+
+        public ServerConnector(Socket socket){
+            this.serverSocket=socket;
+        }
+
+
+
 }

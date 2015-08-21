@@ -7,12 +7,11 @@ import java.net.Socket;
  */
 public class Client {
     private Socket socketToServer;
-    ServerConnector serverConnector= new ServerConnector();
 
     public void connect(String host) throws Exception{
         System.out.println("Connecting to... " + host);
 
-        socketToServer= new Socket(host, 4444);
+        socketToServer = new Socket(host, 4444);
     }
 
 
@@ -22,6 +21,7 @@ public class Client {
 
 
     public void doRequest(String request)throws Exception{
-        serverConnector.send(request, socketToServer);
+        ServerConnector serverConnector = new ServerConnector(socketToServer);
+        serverConnector.send(request);
     }
 }
