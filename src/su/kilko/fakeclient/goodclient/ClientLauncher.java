@@ -11,7 +11,6 @@ import java.io.InputStreamReader;
 public class ClientLauncher {
 
     public static final Logger log = Logger.getLogger(ClientLauncher.class);
-    private static boolean isShutdownClient;
 
     public static void main(String[] args) throws Exception {
         System.out.println("Welcome to Client side.");
@@ -37,25 +36,20 @@ public class ClientLauncher {
                 System.out.println("You entered an empty value");
             }
         }
+
         System.out.println("Enter your message");
         while (true){
             String request = reader.readLine();
+            Object response = client.doRequest(request);
+            System.out.println(response);
+
             if (request.equalsIgnoreCase("close") || request.equalsIgnoreCase("exit")) {
-                System.out.println("Bye!");
-                isShutdownClient=true;
                 reader.close();
-                client.doRequest(request);
                 client.disconnect();
                 break;
             }
-            client.doRequest(request);
-
         }
-
+        System.out.println("Bye!");
     }
 
-
-    public static boolean isShutdownClient(){
-        return isShutdownClient;
-    }
 }
