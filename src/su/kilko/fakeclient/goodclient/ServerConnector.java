@@ -9,21 +9,17 @@ import java.net.Socket;
 
 // * Created by Kosilov Nikita on 19.08.2015.
 
-public class ServerConnector  {
+public class ServerConnector {
 
     private Socket serverSocket;
 
     private PrintWriter sendToServer;
     private BufferedReader messageFromServer;
 
-    public Object send(Object request) throws IOException {
+    public void send(Object request) throws IOException {
         ClientLauncher.log.info("Sending request to the server");
         sendToServer.println(request);
 
-        String response = messageFromServer.readLine();
-        ClientLauncher.log.info(String.format("Get response: %s", response));
-
-        return response;
     }
 
     public ServerConnector(String host) throws IOException {
@@ -35,6 +31,11 @@ public class ServerConnector  {
     public void close() throws IOException {
         sendToServer.close();
         messageFromServer.close();
+    }
+
+    public Object getResponse() throws IOException {
+        String response = messageFromServer.readLine();
+        return response;
     }
 
 

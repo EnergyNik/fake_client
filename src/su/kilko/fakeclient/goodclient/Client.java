@@ -1,10 +1,13 @@
 package su.kilko.fakeclient.goodclient;
 
+import java.io.IOException;
+
 /**
  * Created by Kosilov Nikita on 19.08.2015.
  */
 public class Client {
     ServerConnector serverConnector;
+    ResponseProcessor responseProcessor;
 
     public void connect(String host) throws Exception{
         System.out.println("Connecting to... " + host);
@@ -15,12 +18,10 @@ public class Client {
         serverConnector.close();
     }
 
-    public Object doRequest(String request)throws Exception{
-        Object response = serverConnector.send(request);
-        if(response == null){
-            response = "Client disconnected";
-        }
-
-        return response;
+    public void sendToServer(Object request) throws IOException{
+        serverConnector.send(request);
+    }
+    public Object getResponse() throws IOException{
+        return serverConnector.getResponse();
     }
 }

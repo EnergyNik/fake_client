@@ -16,6 +16,11 @@ public class ClientLauncher {
         System.out.println("Welcome to Client side.");
 
         Client client = new Client();
+        RequestGenerator requestGenerator = new RequestGenerator();
+        ResponseProcessor responseProcessor = new ResponseProcessor();
+
+        Object requestOfClient;
+        Object responseFromServer;
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("To whom you want to connect?");
@@ -39,11 +44,12 @@ public class ClientLauncher {
 
         System.out.println("Enter your message");
         while (true){
-            String request = reader.readLine();
-            Object response = client.doRequest(request);
-            System.out.println(response);
+            requestOfClient = requestGenerator.getRequest();
+            client.sendToServer(requestOfClient);
 
-            if (request.equalsIgnoreCase("close") || request.equalsIgnoreCase("exit")) {
+            responseFromServer = client.getResponse();
+            System.out.println(responseProcessor.getApplicationsRequest(responseFromServer));
+            if (requestOfClient.toString().equalsIgnoreCase("close") || requestOfClient.toString().equalsIgnoreCase("exit")) {
                 reader.close();
                 client.disconnect();
                 break;
