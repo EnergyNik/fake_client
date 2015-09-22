@@ -6,11 +6,9 @@ package su.kilko.fakeclient.goodclient;
 public class ResponseProcessor {
     public Object getApplicationsRequest(Object response)throws Exception{
         Object applicationsRequest = response;
-        if(applicationsRequest == null){
+        if(applicationsRequest == null) {
             applicationsRequest = "Client disconnected";
         }
-
-
         return applicationsRequest;
     }
 

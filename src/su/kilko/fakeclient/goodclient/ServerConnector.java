@@ -16,7 +16,7 @@ public class ServerConnector {
     private PrintWriter sendToServer;
     private BufferedReader messageFromServer;
 
-    public void send(Object request) throws IOException {
+    public void sendToServer(Object request) throws IOException {
         ClientLauncher.log.info("Sending request to the server");
         sendToServer.println(request);
 
@@ -34,7 +34,7 @@ public class ServerConnector {
     }
 
     public Object getResponse() throws IOException {
-        String response = messageFromServer.readLine();
+        Object response = messageFromServer.readLine();
         return response;
     }
 
