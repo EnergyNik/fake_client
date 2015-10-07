@@ -13,28 +13,24 @@ public class ServerConnector {
 
     private Socket serverSocket;
 
-    private PrintWriter sendToServer;
-    private BufferedReader messageFromServer;
-
-    public void sendToServer(Object request) throws IOException {
-        ClientLauncher.log.info("Sending request to the server");
-        sendToServer.println(request);
-
-    }
+    private PrintWriter output;
+    private BufferedReader input;
 
     public ServerConnector(String host) throws IOException {
         serverSocket = new Socket(host, 4444);
-        sendToServer = new PrintWriter(serverSocket.getOutputStream(), true);
-        messageFromServer = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
+        output = new PrintWriter(serverSocket.getOutputStream(), true);
+        input = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
     }
 
     public void close() throws IOException {
-        sendToServer.close();
-        messageFromServer.close();
+        output.close();
+        input.close();
     }
 
-    public Object getResponse() throws IOException {
-        Object response = messageFromServer.readLine();
+    public Object getResponse(Object request) throws IOException {
+        ClientLauncher.log.info("Sending request to the server");
+        output.println(request);
+        Object response = input.readLine();
         return response;
     }
 

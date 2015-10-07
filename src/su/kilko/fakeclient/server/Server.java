@@ -21,19 +21,16 @@ public class Server extends Thread {
         // create server socket
         try {
             socketServers = new ServerSocket(4444);
-                System.out.println("Server started");
-            } catch (IOException e) {
-                System.out.println("Couldn't listen to port 4444");
-                System.exit(-1);
-            }
+            System.out.println("Server started");
+        } catch (IOException e) {
+            System.out.println("Couldn't listen to port 4444");
+            System.exit(-1);
+        }
 
         while (true) {
-            // ��� ������ �����������, ����� ���� ��������� ��������� �������
-            // � ����� �������������� ����� � ����������� ������� �� ��������
             try {
                 new Server(numOfClients, socketServers.accept());
                 numOfClients++;
-               // System.out.print("Waiting for a client...");
             }
             catch (Exception e)
             {
@@ -82,7 +79,7 @@ public class Server extends Thread {
                         count++;
                         break;
                     }
-                    if (inputMessage.equalsIgnoreCase("close")) {
+                    if (inputMessage.equalsIgnoreCase("close connection")) {
                         System.out.println("Client " + numClient + " disconnected");
                         socketFromClient.close();
                         count1++;

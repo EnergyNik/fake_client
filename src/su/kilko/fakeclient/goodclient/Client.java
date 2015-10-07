@@ -5,25 +5,53 @@ package su.kilko.fakeclient.goodclient;
  */
 public class Client {
     ServerConnector serverConnector;
-    RequestGenerator requestGenerator = new RequestGenerator();
-    ResponseProcessor responseProcessor = new ResponseProcessor();
-    Object finishedResponse;
+    RequestGenerator requestGenerator;
+    EchoRequestGenerator echoRequestGenerator;
+    ResponseProcessor responseProcessor;
+
+    public Client(RequestGenerator requestGenerator, EchoRequestGenerator echoRequestGenerator, ResponseProcessor responseProcessor){
+        serverConnector = null;
+        this.requestGenerator = requestGenerator;
+        this.echoRequestGenerator = echoRequestGenerator;
+        this.responseProcessor = responseProcessor;
+    }
 
     public void connect(String host) throws Exception{
-        System.out.println("Connecting to... " + host);
         serverConnector = new ServerConnector(host);
     }
 
     public void disconnect()throws Exception{
+        checkState();
+
         serverConnector.close();
     }
 
-    public Object getResponse(Object message) throws Exception{
-        Object request = requestGenerator.convertRequest(message);
-        serverConnector.sendToServer(request);
-        Object response =  serverConnector.getResponse();
-        finishedResponse = responseProcessor.getApplicationsRequest(response);
+    public Object getResponse(int chooseResponse, Object message) throws Exception{
+        checkState();
+        Object request;
+
+        if(chooseResponse == 1) {
+            request = echoRequestGenerator.convertRequest(message);
+        }
+        else{
+            request = requestGenerator.convertRequest(message);
+        }
+        Object response = serverConnector.getResponse(request);
+        Object finishedResponse = responseProcessor.getApplicationsRequest(response);
         return finishedResponse;
     }
 
+    public boolean isConnected() {
+        if(serverConnector == null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private void checkState() throws Exception {
+        if(!isConnected()) {
+            throw new Exception("Client wasn't connect to host!");
+        }
+    }
 }
