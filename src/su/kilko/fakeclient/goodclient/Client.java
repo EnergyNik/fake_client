@@ -6,13 +6,11 @@ package su.kilko.fakeclient.goodclient;
 public class Client {
     ServerConnector serverConnector;
     RequestGenerator requestGenerator;
-    EchoRequestGenerator echoRequestGenerator;
     ResponseProcessor responseProcessor;
 
-    public Client(RequestGenerator requestGenerator, EchoRequestGenerator echoRequestGenerator, ResponseProcessor responseProcessor){
+    public Client(RequestGenerator requestGenerator, ResponseProcessor responseProcessor){
         serverConnector = null;
         this.requestGenerator = requestGenerator;
-        this.echoRequestGenerator = echoRequestGenerator;
         this.responseProcessor = responseProcessor;
     }
 
@@ -28,15 +26,8 @@ public class Client {
 
     public Object getResponse(int chooseResponse, Object message) throws Exception{
         checkState();
-        Object request;
 
-        if(chooseResponse == 1) {
-            request = echoRequestGenerator.convertRequest(message);
-        }
-        else{
-            request = requestGenerator.convertRequest(message);
-        }
-        Object response = serverConnector.getResponse(request);
+        Object response = serverConnector.getResponse(requestGenerator.convertRequest(message));
         Object finishedResponse = responseProcessor.getApplicationsRequest(response);
         return finishedResponse;
     }

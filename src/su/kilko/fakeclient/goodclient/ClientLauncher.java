@@ -15,19 +15,34 @@ public class ClientLauncher {
     public static void main(String[] args) throws Exception {
         System.out.println("Welcome to Client side.");
 
+        int chooseResponse;
+        Object requestOfClient;
+        Object finishedResponse;
+        boolean isExit = false;
+        RequestGenerator requestGenerator;
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        System.out.println("What kind of request you want to send? 1 = echo, 2 = xml");
+        chooseResponse = Integer.parseInt(reader.readLine());
+            switch (chooseResponse) {
+                case 1:
+                    requestGenerator = new EchoRequestGenerator();
+                    break;
+                case 2:
+                    requestGenerator = new XmlRequestGenerator();
+                    break;
+                default:
+                    System.out.println("You have selected is not correct. The default will be chosen Echo");
+                    requestGenerator = new EchoRequestGenerator();
+                    break;
+            }
+
         Client client = new Client(
-            new RequestGenerator(),
-            new EchoRequestGenerator(),
+            requestGenerator,
             new ResponseProcessor()
         );
 
-
-        Object requestOfClient;
-        Object finishedResponse;
-        int chooseResponse;
-        boolean isExit = false;
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
             System.out.println("To whom you want to connect?");
             String host = reader.readLine();
@@ -48,17 +63,6 @@ public class ClientLauncher {
             }
 
 
-            System.out.println("What kind of request you want to send? 1 = echo, 2 = xml");
-            while (true) {
-                chooseResponse = Integer.parseInt(reader.readLine());
-                if (chooseResponse == 1 || chooseResponse == 2) {
-                    System.out.println("You entered " + chooseResponse);
-                    break;
-                }
-                else{
-                    System.out.println("You have entered invalid parameter. Please try again");
-                }
-            }
             System.out.println("Enter your message");
             while (true) {
                 requestOfClient = reader.readLine();

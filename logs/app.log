@@ -445,3 +445,15 @@ java.net.ConnectException: Connection refused: connect
 2015-10-07 18:30:20,906 INFO s.k.f.g.ClientLauncher [main] Sending request to the server
 2015-10-07 18:32:26,865 INFO s.k.f.g.ClientLauncher [main] Sending request to the server
 2015-10-07 18:33:30,138 INFO s.k.f.g.ClientLauncher [main] Sending request to the server
+2015-10-10 23:32:59,326 INFO s.k.f.g.ClientLauncher [main] Sending request to the server
+2015-10-10 23:33:00,601 INFO s.k.f.g.ClientLauncher [main] Sending request to the server
+2015-10-10 23:33:01,485 INFO s.k.f.g.ClientLauncher [main] Sending request to the server
+2015-10-10 23:33:02,357 INFO s.k.f.g.ClientLauncher [main] Sending request to the server
+2015-10-10 23:33:07,554 INFO s.k.f.g.ClientLauncher [main] Sending request to the server
+2015-10-10 23:33:13,086 INFO s.k.f.g.ClientLauncher [main] Sending request to the server
+2015-10-10 23:33:14,541 INFO s.k.f.g.ClientLauncher [main] Sending request to the server
+2015-10-10 23:33:23,636 INFO s.k.f.g.ClientLauncher [main] Sending request to the server
+2015-10-10 23:33:43,520 INFO s.k.f.g.ClientLauncher [main] Sending request to the server
+2015-10-10 23:39:12,933 INFO s.k.f.g.ClientLauncher [main] Sending request to the server
+2015-10-10 23:44:34,012 INFO s.k.f.g.ClientLauncher [main] Sending request to the server
+2015-10-10 23:44:37,528 INFO s.k.f.g.ClientLauncher [main] Sending request to the server
